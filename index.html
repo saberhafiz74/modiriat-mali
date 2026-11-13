@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0d1422"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="description" content="مدیریت مالی شخصی فارسی با ذخیره‌سازی محلی">
+<link rel="manifest" href="manifest.webmanifest"><link rel="apple-touch-icon" href="icon-192.png">
+<title>مدیریت مالی من</title>
+<style>
+:root{color-scheme:dark;--bg:#0b101a;--panel:#151e2d;--panel2:#1d2a3e;--muted:#9aa9bd;--text:#f4f7fc;--green:#45d6a4;--red:#ff7187;--blue:#88a9ff;--gold:#f4c66a;--line:#29364b}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 50% -15%,#26395d 0,#0b101a 55%);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Tahoma,sans-serif;min-height:100vh;padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom)}
+.app{max-width:760px;margin:auto;padding:18px 15px 100px}.top{display:flex;justify-content:space-between;align-items:center;margin:7px 0 19px}.brand{font-size:20px;font-weight:850}.sub{color:var(--muted);font-size:11px;margin-top:5px}.chip{border:1px solid var(--line);background:#172235;border-radius:22px;padding:8px 11px;color:#c8d5e9;font-size:11px}
+.hero{background:linear-gradient(135deg,#294779,#1e3456 58%,#194b4a);border:1px solid #405d88;border-radius:23px;padding:20px;margin-bottom:12px;box-shadow:0 16px 40px #0005}.hero small{color:#d2def2}.big{font-size:30px;font-weight:850;margin:8px 0}.herofoot{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-size:11px;color:#d5e1f2}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:15px}.stat,.panel{background:var(--panel);border:1px solid var(--line);border-radius:17px;padding:14px}.stat span{display:block;color:var(--muted);font-size:11px;margin-bottom:8px}.stat b{font-size:16px}.green{color:var(--green)}.red{color:var(--red)}.gold{color:var(--gold)}
+.head{display:flex;justify-content:space-between;align-items:center;margin:21px 2px 11px}.head h2{font-size:15px;margin:0}.link{background:none;border:0;color:var(--blue);font:inherit;font-size:11px}
+.quick{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.quick button{background:var(--panel2);border:1px solid var(--line);color:var(--text);border-radius:14px;padding:12px 5px;font:inherit;font-size:11px}.quick strong{display:block;font-size:21px;margin-bottom:5px}
+.tx{display:flex;align-items:center;gap:10px;padding:11px 0;border-bottom:1px solid var(--line)}.tx:last-child{border:0}.ico{width:38px;height:38px;border-radius:12px;background:#263650;display:grid;place-items:center;font-size:17px;flex-shrink:0}.txmain{flex:1;min-width:0}.txmain b{font-size:12px}.txmain small{display:block;color:var(--muted);font-size:10px;margin-top:4px}.txamount{font-weight:750;font-size:12px;white-space:nowrap}.empty{color:var(--muted);font-size:12px;text-align:center;padding:22px 5px}
+.nav{position:fixed;bottom:0;left:0;right:0;background:#101927ed;backdrop-filter:blur(18px);border-top:1px solid var(--line);display:flex;justify-content:center;padding:8px 8px calc(8px + env(safe-area-inset-bottom));z-index:5}.navin{width:min(760px,100%);display:flex;justify-content:space-around}.nav button{background:none;border:0;color:var(--muted);font:inherit;font-size:10px;padding:5px}.nav button.active{color:var(--green)}
+.view{display:none}.view.active{display:block}.formgrid{display:grid;gap:11px}.field label{display:block;color:var(--muted);font-size:11px;margin:0 0 6px}.field input,.field select,.field textarea{width:100%;background:#0e1623;color:var(--text);border:1px solid var(--line);border-radius:11px;padding:12px;font:inherit;font-size:13px}.field textarea{min-height:65px}.btn{border:0;border-radius:12px;padding:12px 14px;font:inherit;font-size:12px;font-weight:750}.primary{background:var(--green);color:#08241b}.secondary{background:var(--panel2);color:var(--text);border:1px solid var(--line)}.danger{background:#482633;color:#ffc4cd}.rowbtn{display:flex;gap:8px;flex-wrap:wrap}.rowbtn>*{flex:1}.tabs{display:flex;gap:7px;margin-bottom:12px}.tabs button{flex:1}.bar{height:7px;background:#2a3548;border-radius:9px;overflow:hidden;margin-top:8px}.bar i{display:block;height:100%;background:var(--green)}.muted{color:var(--muted)}.note{font-size:10px;line-height:1.9;color:var(--muted)}.badge{font-size:10px;border-radius:20px;padding:4px 7px;background:#25334b;color:#b9c9e3}.two{display:grid;grid-template-columns:1fr 1fr;gap:9px}.filter{display:flex;gap:7px;margin-bottom:10px}.filter input,.filter select{min-width:0;flex:1;background:#0e1623;color:var(--text);border:1px solid var(--line);border-radius:10px;padding:10px;font:inherit;font-size:11px}
+dialog{width:min(93%,480px);max-height:88vh;overflow:auto;background:#151e2d;color:#f4f7fc;border:1px solid #34445e;border-radius:19px;padding:17px}dialog::backdrop{background:#0009}.hidden{display:none!important}
+</style></head><body><div class="app">
+<header class="top"><div><div class="brand">مدیریت مالی من</div><div class="sub" id="today">دخل‌وخرجت، شفاف و مرتب</div></div><div class="chip">تومان · خصوصی</div></header>
+
+<section id="home" class="view active">
+ <div class="hero"><small>موجودی کل حساب‌ها</small><div class="big" id="balance">۰ تومان</div><div class="herofoot"><span id="periodText">خلاصه ماه جاری</span><span id="monthNet">خالص ماه: ۰</span></div></div>
+ <div class="stats"><div class="stat"><span>درآمد این ماه</span><b class="green" id="income">۰</b></div><div class="stat"><span>هزینه این ماه</span><b class="red" id="expense">۰</b></div><div class="stat"><span>بدهی باقی‌مانده</span><b class="gold" id="debtTotal">۰</b></div><div class="stat"><span>بودجه باقی‌مانده</span><b id="budgetLeft">تعیین نشده</b></div></div>
+ <div class="head"><h2>ثبت سریع</h2></div><div class="quick"><button onclick="openTx('expense')"><strong class="red">−</strong>هزینه</button><button onclick="openTx('income')"><strong class="green">+</strong>درآمد</button><button onclick="openTransfer()"><strong>⇄</strong>انتقال وجه</button></div>
+ <div class="head"><h2>آخرین تراکنش‌ها</h2><button class="link" onclick="view('transactions')">مشاهده همه</button></div><div class="panel" id="recent"></div>
+ <div class="head"><h2>وضعیت بودجه</h2><button class="link" onclick="view('planning')">تنظیم بودجه</button></div><div class="panel" id="homeBudget"></div>
+</section>
+
+<section id="transactions" class="view"><div class="head"><h2>تراکنش‌ها</h2><button class="link" onclick="openTx('expense')">+ ثبت تراکنش</button></div>
+ <div class="filter"><input id="searchTx" placeholder="جست‌وجو..." oninput="renderTx()"><select id="filterType" onchange="renderTx()"><option value="all">همه</option><option value="income">درآمد</option><option value="expense">هزینه</option><option value="transfer">انتقال</option></select></div>
+ <div class="panel" id="txList"></div>
+</section>
+
+<section id="planning" class="view"><div class="head"><h2>برنامه‌ریزی مالی</h2></div>
+ <div class="panel formgrid"><div class="field"><label>بودجه هزینه ماهانه (تومان)</label><input id="budgetInput" type="number" min="0" inputmode="numeric" placeholder="مثلاً ۲۵۰۰۰۰۰۰"></div><div class="field"><label>هدف پس‌انداز (تومان)</label><input id="goalInput" type="number" min="0" inputmode="numeric" placeholder="مثلاً ۱۰۰۰۰۰۰۰۰"></div><button class="btn primary" onclick="savePlan()">ذخیره برنامه</button><div id="planReport" class="note"></div></div>
+ <div class="head"><h2>درآمد و هزینه تکرارشونده</h2><button class="link" onclick="openRecurring()">+ افزودن</button></div><div class="panel"><div class="note">برای حقوق، اجاره، اشتراک‌ها یا پرداخت‌های ثابتی که هر ماه تکرار می‌شوند. این نسخه در روزی که اپ را باز می‌کنی، موارد سررسیدشده را ثبت می‌کند.</div><div id="recurringList"></div></div>
+</section>
+
+<section id="accounts" class="view"><div class="head"><h2>حساب‌ها</h2><button class="link" onclick="openAccount()">+ حساب جدید</button></div><div class="panel" id="accountList"></div>
+ <div class="head"><h2>انتقال بین حساب‌ها</h2><button class="link" onclick="openTransfer()">ثبت انتقال</button></div><div class="panel note">انتقال وجه بین حساب‌های خودت درآمد یا هزینه محسوب نمی‌شود و فقط موجودی دو حساب را جابه‌جا می‌کند.</div>
+</section>
+
+<section id="debts" class="view"><div class="head"><h2>بدهی‌ها و اقساط</h2><button class="link" onclick="openDebt()">+ بدهی جدید</button></div><div class="panel" id="debtList"></div></section>
+
+<section id="settings" class="view"><div class="head"><h2>پشتیبان‌گیری و تنظیمات</h2></div><div class="panel formgrid">
+ <p class="note">اطلاعات مالی فقط در حافظه محلی همین مرورگر ذخیره می‌شود و به سرور ارسال نمی‌شود. پاک‌کردن داده‌های Safari یا حذف اطلاعات سایت ممکن است داده‌ها را پاک کند. خروجی پشتیبان را در جای امن نگه دار.</p>
+ <div class="rowbtn"><button class="btn secondary" onclick="backup()">دریافت فایل پشتیبان</button><label class="btn secondary" style="text-align:center">بازیابی پشتیبان<input class="hidden" type="file" accept="application/json" onchange="restore(event)"></label></div>
+ <button class="btn danger" onclick="resetAll()">حذف تمام اطلاعات</button><div class="note">نسخه ۲ · تقویم نمایشی شمسی · واحد پول تومان</div></div>
+</section>
+</div>
+<nav class="nav"><div class="navin">
+<button class="active" data-id="home" onclick="view('home')">⌂<br>خانه</button><button data-id="transactions" onclick="view('transactions')">⇄<br>تراکنش</button><button data-id="planning" onclick="view('planning')">▤<br>بودجه</button><button data-id="accounts" onclick="view('accounts')">▣<br>حساب‌ها</button><button data-id="debts" onclick="view('debts')">◷<br>بدهی</button><button data-id="settings" onclick="view('settings')">⚙<br>بیشتر</button>
+</div></nav>
+
+<dialog id="txDlg"><form id="txForm" class="formgrid"><div class="head"><h2 id="txHeading">ثبت تراکنش</h2><button type="button" class="link" onclick="closeDlg('txDlg')">بستن ✕</button></div><input id="txId" type="hidden"><input id="txType" type="hidden">
+<div class="field"><label>عنوان</label><input id="txTitle" required placeholder="مثلاً خرید روزانه"></div><div class="field"><label>مبلغ (تومان)</label><input id="txAmount" type="number" min="1" required inputmode="numeric"></div>
+<div class="field"><label>دسته‌بندی</label><select id="txCat"><option>خوراک و خرید</option><option>خانه و اجاره</option><option>حمل‌ونقل</option><option>قبض و خدمات</option><option>درمان</option><option>تفریح</option><option>حقوق</option><option>فروش و درآمد</option><option>قسط و بدهی</option><option>هدیه</option><option>سایر</option></select></div>
+<div class="field"><label>حساب</label><select id="txAccount"></select></div><div class="field"><label>تاریخ</label><input id="txDate" type="date" required></div><button class="btn primary">ذخیره تراکنش</button></form></dialog>
+
+<dialog id="accountDlg"><form id="accountForm" class="formgrid"><div class="head"><h2>حساب جدید</h2><button type="button" class="link" onclick="closeDlg('accountDlg')">بستن ✕</button></div><div class="field"><label>نام حساب</label><input id="accName" required placeholder="مثلاً بانک ملت"></div><div class="field"><label>موجودی اولیه (تومان)</label><input id="accBalance" type="number" inputmode="numeric" value="0"></div><button class="btn primary">ذخیره حساب</button></form></dialog>
+
+<dialog id="transferDlg"><form id="transferForm" class="formgrid"><div class="head"><h2>انتقال وجه</h2><button type="button" class="link" onclick="closeDlg('transferDlg')">بستن ✕</button></div><div class="field"><label>از حساب</label><select id="fromAcc"></select></div><div class="field"><label>به حساب</label><select id="toAcc"></select></div><div class="field"><label>مبلغ (تومان)</label><input id="transferAmount" type="number" min="1" required></div><div class="field"><label>تاریخ</label><input id="transferDate" type="date" required></div><button class="btn primary">ثبت انتقال</button></form></dialog>
+
+<dialog id="debtDlg"><form id="debtForm" class="formgrid"><div class="head"><h2>ثبت بدهی یا قسط</h2><button type="button" class="link" onclick="closeDlg('debtDlg')">بستن ✕</button></div><div class="field"><label>عنوان / طلبکار</label><input id="debtName" required></div><div class="field"><label>کل مبلغ بدهی (تومان)</label><input id="debtAmount" type="number" min="1" required></div><div class="field"><label>مبلغ هر قسط (تومان)</label><input id="debtInstallment" type="number" min="0" value="0"></div><div class="field"><label>تاریخ سررسید قسط بعدی</label><input id="debtDue" type="date"></div><button class="btn primary">ذخیره بدهی</button></form></dialog>
+
+<dialog id="recDlg"><form id="recForm" class="formgrid"><div class="head"><h2>تراکنش تکرارشونده</h2><button type="button" class="link" onclick="closeDlg('recDlg')">بستن ✕</button></div><div class="field"><label>عنوان</label><input id="recName" required placeholder="مثلاً حقوق ماهانه"></div><div class="field"><label>نوع</label><select id="recType"><option value="income">درآمد</option><option value="expense">هزینه</option></select></div><div class="field"><label>مبلغ (تومان)</label><input id="recAmount" type="number" min="1" required></div><div class="field"><label>دسته‌بندی</label><input id="recCat" value="سایر"></div><div class="field"><label>حساب</label><select id="recAccount"></select></div><div class="field"><label>روز ماه (۱ تا ۲۸)</label><input id="recDay" type="number" min="1" max="28" value="1"></div><button class="btn primary">ذخیره تکرار</button></form></dialog>
+<script src="app.js"></script></body></html>
