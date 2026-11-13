@@ -34,6 +34,25 @@ dialog{width:min(93%,480px);max-height:88vh;overflow:auto;background:#151e2d;col
  <div class="panel" id="txList"></div>
 </section>
 
+<section id="expenses" class="view">
+ <div class="head"><h2>تحلیل هزینه‌ها</h2><span class="badge" id="expenseMonthLabel">ماه جاری</span></div>
+ <div class="stats">
+  <div class="stat"><span>ضروری · امتیاز ۱ و ۲</span><b class="green" id="necessaryTotal">۰ تومان</b></div>
+  <div class="stat"><span>متوسط · امتیاز ۳</span><b id="mediumTotal">۰ تومان</b></div>
+  <div class="stat"><span>غیرضروری · امتیاز ۴ و ۵</span><b class="red" id="unnecessaryTotal">۰ تومان</b></div>
+  <div class="stat"><span>کل هزینه‌های ماه</span><b id="allExpenseTotal">۰ تومان</b></div>
+ </div>
+ <div class="panel">
+  <div class="head" style="margin-top:0"><h2>سهم هر گروه از هزینه‌ها</h2></div>
+  <div id="expenseGroupBars"></div>
+ </div>
+ <div class="head"><h2>دسته‌بندی هزینه‌ها</h2></div>
+ <div class="panel"><div id="expenseCategoryList"></div></div>
+ <div class="head"><h2>فهرست هزینه‌ها</h2></div>
+ <div class="filter"><select id="expenseGroupFilter" onchange="renderExpenses()"><option value="all">همه هزینه‌ها</option><option value="necessary">ضروری (۱ و ۲)</option><option value="medium">متوسط (۳)</option><option value="unnecessary">غیرضروری (۴ و ۵)</option></select></div>
+ <div class="panel" id="expenseList"></div>
+</section>
+
 <section id="planning" class="view"><div class="head"><h2>برنامه‌ریزی مالی</h2></div>
  <div class="panel formgrid"><div class="field"><label>بودجه هزینه ماهانه (تومان)</label><input id="budgetInput" type="number" min="0" inputmode="numeric" placeholder="مثلاً ۲۵۰۰۰۰۰۰"></div><div class="field"><label>هدف پس‌انداز (تومان)</label><input id="goalInput" type="number" min="0" inputmode="numeric" placeholder="مثلاً ۱۰۰۰۰۰۰۰۰"></div><button class="btn primary" onclick="savePlan()">ذخیره برنامه</button><div id="planReport" class="note"></div></div>
  <div class="head"><h2>درآمد و هزینه تکرارشونده</h2><button class="link" onclick="openRecurring()">+ افزودن</button></div><div class="panel"><div class="note">برای حقوق، اجاره، اشتراک‌ها یا پرداخت‌های ثابتی که هر ماه تکرار می‌شوند. این نسخه در روزی که اپ را باز می‌کنی، موارد سررسیدشده را ثبت می‌کند.</div><div id="recurringList"></div></div>
@@ -52,13 +71,13 @@ dialog{width:min(93%,480px);max-height:88vh;overflow:auto;background:#151e2d;col
 </section>
 </div>
 <nav class="nav"><div class="navin">
-<button class="active" data-id="home" onclick="view('home')">⌂<br>خانه</button><button data-id="transactions" onclick="view('transactions')">⇄<br>تراکنش</button><button data-id="planning" onclick="view('planning')">▤<br>بودجه</button><button data-id="accounts" onclick="view('accounts')">▣<br>حساب‌ها</button><button data-id="debts" onclick="view('debts')">◷<br>بدهی</button><button data-id="settings" onclick="view('settings')">⚙<br>بیشتر</button>
+<button class="active" data-id="home" onclick="view('home')">⌂<br>خانه</button><button data-id="transactions" onclick="view('transactions')">⇄<br>تراکنش</button><button data-id="expenses" onclick="view('expenses')">◉<br>هزینه‌ها</button><button data-id="planning" onclick="view('planning')">▤<br>بودجه</button><button data-id="accounts" onclick="view('accounts')">▣<br>حساب‌ها</button><button data-id="debts" onclick="view('debts')">◷<br>بدهی</button><button data-id="settings" onclick="view('settings')">⚙<br>بیشتر</button>
 </div></nav>
 
 <dialog id="txDlg"><form id="txForm" class="formgrid"><div class="head"><h2 id="txHeading">ثبت تراکنش</h2><button type="button" class="link" onclick="closeDlg('txDlg')">بستن ✕</button></div><input id="txId" type="hidden"><input id="txType" type="hidden">
 <div class="field"><label>عنوان</label><input id="txTitle" required placeholder="مثلاً خرید روزانه"></div><div class="field"><label>مبلغ (تومان)</label><input id="txAmount" type="number" min="1" required inputmode="numeric"></div>
 <div class="field"><label>دسته‌بندی</label><select id="txCat"><option>خوراک و خرید</option><option>خانه و اجاره</option><option>حمل‌ونقل</option><option>قبض و خدمات</option><option>درمان</option><option>تفریح</option><option>حقوق</option><option>فروش و درآمد</option><option>قسط و بدهی</option><option>هدیه</option><option>سایر</option></select></div>
-<div class="field"><label>حساب</label><select id="txAccount"></select></div><div class="field"><label>تاریخ</label><input id="txDate" type="date" required></div><button class="btn primary">ذخیره تراکنش</button></form></dialog>
+<div class="field"><label>حساب</label><select id="txAccount"></select></div><div class="field" id="txPriorityField" hidden><label>میزان ضرورت هزینه (۱ ضروری تا ۵ غیرضروری)</label><select id="txPriority"><option value="1">۱ · کاملاً ضروری</option><option value="2">۲ · ضروری</option><option value="3" selected>۳ · متوسط</option><option value="4">۴ · غیرضروری</option><option value="5">۵ · کاملاً غیرضروری</option></select></div><div class="field"><label>تاریخ</label><input id="txDate" type="date" required></div><button class="btn primary">ذخیره تراکنش</button></form></dialog>
 
 <dialog id="accountDlg"><form id="accountForm" class="formgrid"><div class="head"><h2>حساب جدید</h2><button type="button" class="link" onclick="closeDlg('accountDlg')">بستن ✕</button></div><div class="field"><label>نام حساب</label><input id="accName" required placeholder="مثلاً بانک ملت"></div><div class="field"><label>موجودی اولیه (تومان)</label><input id="accBalance" type="number" inputmode="numeric" value="0"></div><button class="btn primary">ذخیره حساب</button></form></dialog>
 
